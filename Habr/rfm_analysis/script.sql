@@ -22,15 +22,7 @@ $$ language sql;
 
 -- Наименование дня месяца
 create function func_day_of_week(number_day integer) returns text as $$
-    select case 
-           when number_day = 1 then 'sunday'
-           when number_day = 2 then 'monday'
-           when number_day = 3 then 'tuesday'
-           when number_day = 4 then 'wednesday'
-           when number_day = 5 then 'thursday'
-           when number_day = 6 then 'friday'
-           when number_day = 7 then 'saturday'
-          end;
+select (string_to_array('sunday,monday,tuesday,wednesday,thursday,friday,saturday',','))[number_day];
 $$ language sql;
 
 -- rfm-анализ
