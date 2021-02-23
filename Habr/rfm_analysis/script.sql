@@ -1,4 +1,4 @@
---Функции для rfm-анализа
+--Р¤СѓРЅРєС†РёРё РґР»СЏ rfm-Р°РЅР°Р»РёР·Р°
 create function func_recency(days integer) returns integer as $$
     select case when days<90 then 1
            when (days>=90) and (days<=180) then 2
@@ -20,7 +20,7 @@ create function func_monetary(amount integer) returns integer as $$
           end;
 $$ language sql;
 
--- Наименование дня месяца
+-- РќР°РёРјРµРЅРѕРІР°РЅРёРµ РґРЅСЏ РјРµСЃСЏС†Р°
 create function func_day_of_week(number_day integer) returns text as $$
     select case 
            when number_day = 1 then 'sunday'
@@ -33,7 +33,7 @@ create function func_day_of_week(number_day integer) returns text as $$
           end;
 $$ language sql;
 
--- rfm-анализ
+-- rfm-Р°РЅР°Р»РёР·
 select d3.*, d3.rfm_recency*100 + d3.rfm_frequency*10 + d3.rfm_monetary as rfm
 from 
 	(select d2.customerid,
@@ -50,7 +50,7 @@ from
 	group by d2.customerid
 	order by d2.customerid) as d3;
 
--- Суммарные продажи в сегменте, количество клиентов, средний чек
+-- РЎСѓРјРјР°СЂРЅС‹Рµ РїСЂРѕРґР°Р¶Рё РІ СЃРµРіРјРµРЅС‚Рµ, РєРѕР»РёС‡РµСЃС‚РІРѕ РєР»РёРµРЅС‚РѕРІ, СЃСЂРµРґРЅРёР№ С‡РµРє
 select r.rfm, 
 	   sum(r.monetary) as total_amount,
 	   count(r.rfm) as count_customer,
@@ -58,7 +58,7 @@ select r.rfm,
 from public.report_rfm_analysis as r 
 group by r.rfm;
 
--- Структура продаж по странам в абсолютном и относительном выражении
+-- РЎС‚СЂСѓРєС‚СѓСЂР° РїСЂРѕРґР°Р¶ РїРѕ СЃС‚СЂР°РЅР°Рј РІ Р°Р±СЃРѕР»СЋС‚РЅРѕРј Рё РѕС‚РЅРѕСЃРёС‚РµР»СЊРЅРѕРј РІС‹СЂР°Р¶РµРЅРёРё
 select d2.rfm,
 		d2.country,
 		cast(sum(d2.amount) as integer) as amount_country,
@@ -71,7 +71,7 @@ from
 group by d2.rfm, d2.country
 order by d2.rfm, sum(d2.amount)desc;
 
--- Топ-3 дня по объему продаж в разрезе сегмент-страна
+-- РўРѕРї-3 РґРЅСЏ РїРѕ РѕР±СЉРµРјСѓ РїСЂРѕРґР°Р¶ РІ СЂР°Р·СЂРµР·Рµ СЃРµРіРјРµРЅС‚-СЃС‚СЂР°РЅР°
 select d4.rfm, d4.country, max(d4.top) as top_3_days
 from 
 	  (select d3.rfm, d3.country, string_agg(d3.day_of_week,', ')over(partition by d3.rfm, d3.country) as top
