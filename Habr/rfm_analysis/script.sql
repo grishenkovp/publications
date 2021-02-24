@@ -26,7 +26,7 @@ select (string_to_array('sunday,monday,tuesday,wednesday,thursday,friday,saturda
 $$ language sql;
 
 -- rfm-анализ
-select d3.*, d3.rfm_recency*100 + d3.rfm_frequency*10 + d3.rfm_monetary as rfm
+select d3.*, concat(d3.rfm_recency,d3.rfm_frequency,d3.rfm_monetary) as rfm
 from 
 	(select d2.customerid,
 			date('2011-11-01')- max(d2.invoicedate) as recency,
