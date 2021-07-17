@@ -1,0 +1,12 @@
+{"code_region":1,"name_region":"north","code_city":"1_1","name_city":"city1"}
+{"code_region":1,"name_region":"north","code_city":"1_2","name_city":"city2"}
+{"code_region":1,"name_region":"north","code_city":"1_3","name_city":"city3"}
+{"code_region":3,"name_region":"south","code_city":"3_7","name_city":"city7"}
+{"code_region":3,"name_region":"south","code_city":"3_8","name_city":"city8"}
+{"code_region":3,"name_region":"south","code_city":"3_9","name_city":"city9"}
+{"code_region":4,"name_region":"west","code_city":"4_10","name_city":"city10"}
+{"code_region":4,"name_region":"west","code_city":"4_11","name_city":"city11"}
+{"code_region":4,"name_region":"west","code_city":"4_12","name_city":"city12"}
+{"code_region":2,"name_region":"east","code_city":"2_4","name_city":"city4"}
+{"code_region":2,"name_region":"east","code_city":"2_5","name_city":"city5"}
+{"code_region":2,"name_region":"east","code_city":"2_6","name_city":"city6"}
